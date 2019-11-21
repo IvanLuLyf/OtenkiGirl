@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>100%晴天女孩</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <style>
+        .header-pic {
+            width: 100%;
+            display: block
+        }
+
+        .left-pic {
+            width: 45%;
+            display: inline-block
+        }
+
+        .top-pic {
+            display: none;
+        }
+
+        .container {
+            padding-left: 20px;
+            width: 45%;
+            display: inline-block;
+        }
+
+        .two-column-parent {
+            display: flex;
+        }
+
+        .two-column {
+            margin-top: 8px;
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            padding-right: 10px;
+        }
+
+        @media screen and (max-width: 650px) {
+            .header-pic {
+                display: none;
+            }
+
+            .left-pic {
+                display: none;
+            }
+
+            .top-pic {
+                width: 100%;
+                display: block;
+            }
+
+            .container {
+                padding-left: 0;
+                width: 100%;
+                display: block;
+            }
+
+            .two-column {
+                margin-top: 8px;
+                display: block;
+                width: 100%;
+                padding-right: 0;
+            }
+
+            .two-column-parent {
+                display: block;
+            }
+        }
+
+        .box {
+            background-color: bisque;
+            border-radius: 10px;
+            margin: 3px 0;
+            padding: 5px 20px;
+            box-shadow: rgb(85, 85, 85) 0 0 5px;
+        }
+
+        .price {
+            font-size: 20px;
+            color: red;
+            padding: 15px 0 0 0;
+        }
+
+        .add-cart {
+            width: 200px;
+            background: red;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            padding: 8px 20px;
+            margin: 12px 0 0 0;
+        }
+
+        .text-box {
+            width: 100%;
+            line-height: 12px;
+            font-size: 12px;
+            padding: 6px;
+            border: chocolate 1px solid;
+            border-radius: 2px;
+            box-sizing: border-box;
+        }
+
+        .input-label {
+            font-size: 13px;
+            margin: 0 0 2px 0;
+            padding: 0;
+        }
+
+        .mt-1 {
+            margin-top: 8px;
+        }
+
+        .mb-1 {
+            margin-bottom: 8px;
+        }
+
+        .need {
+            color: red;
+        }
+
+        .out-box {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .bubble {
+            display: inline-block;
+            position: relative;
+            padding: 8px;
+            font-size: 14px;
+            background-color: bisque;
+            margin-top: 20px;
+            border-radius: 4px;
+            max-width: 200px;
+            font-weight: 400;
+            word-wrap: break-word;
+            word-break: normal;
+        }
+
+        .bubble::before, .bubble::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 11px;
+        }
+
+        .left .bubble {
+            left: 15px;
+            border: 1px solid burlywood;
+        }
+
+        .left .bubble::before {
+            border-right: 10px solid burlywood;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            left: -10px;
+        }
+
+        .left .bubble::after {
+            border-right: 10px solid bisque;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            left: -8px;
+        }
+
+        .message {
+            clear: both;
+            display: flex;
+            padding: 4px 10px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+
+        .message.left span {
+            position: absolute;
+            left: 74px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="out-box">
+    <img class="top-pic" src="img/top.jpg" alt="TOP">
+    <img class="header-pic" src="img/header.jpg" alt="HEADER">
+    <img class="left-pic" src="img/left.jpg" alt="LEFT">
+    <div class="container">
+        <div class="box">
+            <div id="price" class="price">
+                ￥220(含税)
+            </div>
+            <div id="intro" class="mt-1">100%晴女为被雨困扰的你带来阳光😆无论什么地点…</div>
+            <form>
+                <div style="text-align: center">
+                    <input id="add_cart" type="button" class="add-cart" value="加入购物车">
+                </div>
+            </form>
+            <div class="two-column-parent">
+                <div class="two-column">
+                    <label id="prompt_time" for="input_date" class="input-label">希望的时间</label>
+                    <input id="input_date" type="text" class="text-box">
+                </div>
+                <div class="two-column" style="padding-right: 0">
+                    <label id="prompt_place" for="input_place" class="input-label">希望放晴的地点</label>
+                    <input id="input_place" type="text" class="text-box">
+                </div>
+            </div>
+            <div class="mt-1">
+                <label id="prompt_contact" for="input_contact" class="input-label">联系方式<span
+                        class="need">※必填</span></label>
+                <input id="input_contact" type="text" class="text-box" required>
+            </div>
+            <div class="mt-1 mb-1">
+                <label id="prompt_reason" for="input_reason" class="input-label">想要晴天的理由<span
+                        class="need">※必填</span></label>
+                <textarea id="input_reason" rows="3" cols="20" class="text-box" placeholder="请尽量写得详细一些"
+                          required></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="post_list" class="mt-1">
+
+</div>
+<script>
+    'use strict';
+    (function () {
+        let btnAddCart = document.getElementById('add_cart');
+        let txtDate = document.getElementById('input_date');
+        let txtPlace = document.getElementById('input_place');
+        let txtContact = document.getElementById('input_contact');
+        let txtReason = document.getElementById('input_reason');
+        let post_list = document.getElementById('post_list');
+        let conf = {token: 'VHhRZrX6NPTUn8gXc2Cobv'};
+        let posts = [];
+
+        let curLang = {
+            "title": "100%晴天女孩",
+            "price": "￥220(含税)",
+            "intro": "100%晴女为被雨困扰的你带来阳光\uD83D\uDE06无论什么地点…",
+            "add_cart": "加入购物车",
+            "time": "希望的时间",
+            "select": "请选择吧",
+            "place": "希望放晴的地点",
+            "need": "※必填",
+            "contact": "联系方式",
+            "reason": "想要晴天的理由",
+            "prompt": "请尽量写得详细一些"
+        };
+
+
+        function initLanguage() {
+            let languages = ['zh-cn', 'ja', 'en-us'];
+            let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
+            if (languages.indexOf(languageCode) === -1) languageCode = 'zh-cn';
+            if (languageCode === 'zh-cn') return;
+            fetch('lang/' + languageCode + '.json').then(r => r.json()).then(r => {
+                curLang = r;
+                document.title = curLang.title;
+                document.getElementById('price').innerText = curLang.price;
+                document.getElementById('intro').innerText = curLang.intro;
+                btnAddCart.value = curLang.add_cart;
+                document.getElementById('prompt_time').innerText = curLang.time;
+                document.getElementById('prompt_place').innerText = curLang.place;
+                document.getElementById('prompt_contact').innerHTML = `${curLang.contact}<span class="need">${curLang.need}</span>`;
+                document.getElementById('prompt_reason').innerHTML = `${curLang.reason}<span class="need">${curLang.need}</span>`;
+                txtReason.placeholder = curLang.prompt;
+            })
+        }
+
+        function loadContent() {
+            fetch("https://kvdb.io/" + conf.token + "/?regex=%5Epost_&format=json&values=true")
+                .then(r => r.json()).then(r => {
+                posts = r;
+                post_list.innerHTML = '';
+                r.forEach(i => {
+                    let l = document.createElement('div');
+                    let p = JSON.parse(i[1]);
+                    p.contact = escapeHtml(p.contact);
+                    p.place = escapeHtml(p.place);
+                    p.reason = escapeHtml(p.reason);
+                    p.date = escapeHtml(p.date);
+                    l.innerHTML = `<span>${p.contact}</span><img alt="avatar" class="avatar" src="img/avatar.jpg"/><div class="bubble">${curLang.place}:${p.place}<br><br>${curLang.time}:${p.date}<br><br>${curLang.reason}:<br>${p.reason}</div>`;
+                    l.classList.add('message', 'left');
+                    post_list.prepend(l);
+                })
+            });
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        btnAddCart.addEventListener('click', function (e) {
+            if (!txtContact.value) {
+                return;
+            }
+            if (!txtReason.value) {
+                return;
+            }
+            let post = {
+                date: txtDate.value,
+                place: txtPlace.value,
+                contact: txtContact.value,
+                reason: txtReason.value,
+                timestamp: new Date().getTime()
+            };
+            txtDate.value = '';
+            txtPlace.value = '';
+            txtContact.value = '';
+            txtReason.value = '';
+            fetch("https://kvdb.io/" + conf.token + "/post_" + post.timestamp, {
+                'method': 'POST',
+                'body': JSON.stringify(post)
+            }).then(r => {
+                loadContent();
+            });
+        });
+
+        initLanguage();
+        loadContent();
+    })();
+</script>
+</body>
+</html>
