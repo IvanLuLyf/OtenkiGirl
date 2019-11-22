@@ -1,6 +1,14 @@
 # OtenkiGirl
 
-![Banner](img/top.jpg)
+<div align="center">
+  
+<img src="img/top.jpg" height="300">
+
+[DEMO](https://ivanlulyf.github.io/OtenkiGirl/)
+
+</div>
+
+
 
 模仿《天气之子》中出现的网站
 
