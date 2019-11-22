@@ -1,8 +1,6 @@
-# OtenkiGirl
-
 <div align="center">
   
-<img src="img/top.jpg" height="300">
+<img src="img/top.jpg" height="450">
 
 [DEMO](https://ivanlulyf.github.io/OtenkiGirl/)
 
