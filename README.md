@@ -1,6 +1,6 @@
 <div align="center">
   
-<img src="img/top.jpg" height="450">
+<a href="https://ivanlulyf.github.io/OtenkiGirl/"><img src="img/top.jpg" width="260"></a>
 
 [DEMO](https://ivanlulyf.github.io/OtenkiGirl/)
 
