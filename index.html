@@ -270,7 +270,7 @@
 
 
         function initLanguage() {
-            let languages = ['zh-cn', 'ja', 'en-us'];
+            let languages = ['zh-cn', 'zh-tw', 'ja', 'en-us'];
             let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
             if (languages.indexOf(languageCode) === -1) languageCode = 'zh-cn';
             if (languageCode === 'zh-cn') return;
@@ -309,6 +309,8 @@
                     l.classList.add('message', 'left');
                     post_list.prepend(l);
                 })
+            }).catch(err => {
+
             });
         }
 
