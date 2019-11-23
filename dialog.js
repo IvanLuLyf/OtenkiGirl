@@ -110,14 +110,14 @@
     width: 100%;
     height: 100%;
     background-color: #99999999;
-    opacity: 0;
+    opacity: 0.5;
     visibility: hidden;
     transform: scale(1.1);
     transition: visibility 0s linear .25s,opacity .25s 0s,transform .25s;
     z-index: 1;
 }
 .visible {
-    opacity: 0.5;
+    opacity: 1;
     visibility: visible;
     transform: scale(1);
     transition: visibility 0s linear 0s,opacity .25s 0s,transform .25s;
