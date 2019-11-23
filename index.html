@@ -302,7 +302,10 @@
                     p.place = escapeHtml(p.place);
                     p.reason = escapeHtml(p.reason);
                     p.date = escapeHtml(p.date);
-                    l.innerHTML = `<span>${p.contact}</span><img alt="avatar" class="avatar" src="img/avatar.jpg"/><div class="bubble">${curLang.place}:${p.place}<br><br>${curLang.time}:${p.date}<br><br>${curLang.reason}:<br>${p.reason}</div>`;
+                    let place = p.place ? `${curLang.place}:${p.place}<br><br>` : '';
+                    let time = p.date ? `${curLang.time}:${p.date}<br><br>` : '';
+                    let reason = p.reason ? `${curLang.reason}:<br>${p.reason}` : '';
+                    l.innerHTML = `<span>${p.contact}</span><img alt="avatar" class="avatar" src="img/avatar.jpg"/><div class="bubble">${place}${time}${reason}</div>`;
                     l.classList.add('message', 'left');
                     post_list.prepend(l);
                 })
