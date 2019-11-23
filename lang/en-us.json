@@ -9,5 +9,10 @@
   "need": "※Required",
   "contact": "Contact",
   "reason": "Reason",
-  "prompt": "Please try to write in detail"
+  "prompt": "Please try to write in detail",
+  "empty_contact": "Contact is required",
+  "empty_reason": "Reason is required",
+  "confirm": "Do you want to confirm the submission?",
+  "ok": "OK",
+  "cancel": "Cancel"
 }

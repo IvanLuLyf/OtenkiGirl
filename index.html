@@ -231,6 +231,10 @@
 <div id="post_list" class="mt-1">
 
 </div>
+<bunny-dialog id="dialog" ok="确定" cancel="取消">
+    <p id="tips"></p>
+</bunny-dialog>
+<script src="dialog.js"></script>
 <script>
     'use strict';
     (function () {
@@ -240,6 +244,8 @@
         let txtContact = document.getElementById('input_contact');
         let txtReason = document.getElementById('input_reason');
         let post_list = document.getElementById('post_list');
+        let dialog = document.getElementById('dialog');
+        let dialogTip = document.getElementById('tips');
         let conf = {token: 'VHhRZrX6NPTUn8gXc2Cobv'};
         let posts = [];
 
@@ -254,7 +260,12 @@
             "need": "※必填",
             "contact": "联系方式",
             "reason": "想要晴天的理由",
-            "prompt": "请尽量写得详细一些"
+            "prompt": "请尽量写得详细一些",
+            "empty_contact": "请填写联系方式,联系方式不用写真的哦~",
+            "empty_reason": "请填写理由",
+            "confirm": "确认提交嘛?联系方式不用写真的哦~",
+            "ok": "确定",
+            "cancel": "取消",
         };
 
 
@@ -274,6 +285,8 @@
                 document.getElementById('prompt_contact').innerHTML = `${curLang.contact}<span class="need">${curLang.need}</span>`;
                 document.getElementById('prompt_reason').innerHTML = `${curLang.reason}<span class="need">${curLang.need}</span>`;
                 txtReason.placeholder = curLang.prompt;
+                dialog.ok = curLang.ok;
+                dialog.cancel = curLang.cancel;
             })
         }
 
@@ -307,9 +320,15 @@
 
         btnAddCart.addEventListener('click', function (e) {
             if (!txtContact.value) {
+                dialogTip.innerHTML = curLang.empty_contact;
+                dialog.cancel = "";
+                dialog.visible = true;
                 return;
             }
             if (!txtReason.value) {
+                dialogTip.innerHTML = curLang.empty_reason;
+                dialog.cancel = "";
+                dialog.visible = true;
                 return;
             }
             let post = {
@@ -319,15 +338,19 @@
                 reason: txtReason.value,
                 timestamp: new Date().getTime()
             };
-            txtDate.value = '';
-            txtPlace.value = '';
-            txtContact.value = '';
-            txtReason.value = '';
-            fetch("https://kvdb.io/" + conf.token + "/post_" + post.timestamp, {
-                'method': 'POST',
-                'body': JSON.stringify(post)
-            }).then(r => {
-                loadContent();
+            dialog.cancel = curLang.cancel;
+            dialogTip.innerText = curLang.confirm;
+            dialog.show(function () {
+                txtDate.value = '';
+                txtPlace.value = '';
+                txtContact.value = '';
+                txtReason.value = '';
+                fetch("https://kvdb.io/" + conf.token + "/post_" + post.timestamp, {
+                    'method': 'POST',
+                    'body': JSON.stringify(post)
+                }).then(r => {
+                    loadContent();
+                });
             });
         });
 
