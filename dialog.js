@@ -117,7 +117,7 @@
     z-index: 1;
 }
 .visible {
-    opacity: 1;
+    opacity: 0.5;
     visibility: visible;
     transform: scale(1);
     transition: visibility 0s linear 0s,opacity .25s 0s,transform .25s;
