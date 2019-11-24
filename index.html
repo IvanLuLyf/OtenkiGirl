@@ -250,6 +250,14 @@
         let conf = {token: 'VHhRZrX6NPTUn8gXc2Cobv'};
         let posts = [];
 
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/OtenkiGirl/sw.js', {scope: '/OtenkiGirl/'}).then(res => {
+                console.log('ServiceWorker Init');
+            }).catch(err => {
+                console.log('ServiceWorker Failed')
+            })
+        }
+
         let curLang = {
             "title": "100%晴天女孩",
             "price": "￥220(含税)",
@@ -267,6 +275,7 @@
             "confirm": "确认提交嘛?联系方式不用写真的哦~",
             "ok": "确定",
             "cancel": "取消",
+            "network_error": "网络错误,请检查网络连接",
         };
 
 
@@ -293,10 +302,16 @@
 
         function loadContent() {
             fetch("https://kvdb.io/" + conf.token + "/?regex=%5Epost_&format=json&values=true")
-                .then(r => r.json()).then(r => {
-                posts = r;
+                .catch(err => {
+                    dialogTip.innerHTML = curLang.network_error;
+                    dialog.cancel = "";
+                    dialog.visible = true;
+                    return Promise.reject();
+                }).then(r => r.json()).catch(err => {
+            }).then(r => {
+                posts = r || [];
                 post_list.innerHTML = '';
-                r.forEach(i => {
+                posts.forEach(i => {
                     let l = document.createElement('div');
                     let p = JSON.parse(i[1]);
                     p.contact = escapeHtml(p.contact);
@@ -310,8 +325,6 @@
                     l.classList.add('message', 'left');
                     post_list.prepend(l);
                 })
-            }).catch(err => {
-
             });
         }
 
