@@ -1,5 +1,5 @@
 <div align="center">
-  
+
 <a href="https://ivanlulyf.github.io/OtenkiGirl/"><img src="img/top.jpg" width="260"></a>
 
 [DEMO](https://ivanlulyf.github.io/OtenkiGirl/)
@@ -24,9 +24,9 @@ Japanese translation by [@MidoriMeng](https://github.com/MidoriMeng)
 
 License MIT
 
-「天気の子」で示したWebサイトを模倣
+「天気の子」に登場するサイトを実装してみた
 
-純粋なフロントエンド、依存関係なし、バックエンドとしてkvdb.ioを使用
+フロントエンドのみ、依存関係なし、バックエンドはkvdb.io
 
 日本語翻訳 [@MidoriMeng](https://github.com/MidoriMeng)
 
