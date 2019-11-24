@@ -74,7 +74,6 @@
                     $btn.addEventListener('click', e => this.close('cancel'));
                     this.shadowRoot.querySelector('.button-container').append($btn);
                 }
-                console.log(newValue);
                 if (newValue === "") {
                     $btn.style.display = 'none';
                 } else {

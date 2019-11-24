@@ -20,7 +20,6 @@ self.addEventListener('install', function (event) {
 });
 self.addEventListener('fetch', function (event) {
     if (event.request.url.startsWith('https://kvdb.io/')) {
-        event.respondWith(fetch(event.request));
         return;
     }
     event.respondWith(caches.match(event.request).then(function (response) {
