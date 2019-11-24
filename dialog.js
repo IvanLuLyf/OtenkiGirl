@@ -109,8 +109,8 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: #99999999;
-    opacity: 0.5;
+    background-color: rgba(120,120,120,0.5);
+    opacity: 0;
     visibility: hidden;
     transform: scale(1.1);
     transition: visibility 0s linear .25s,opacity .25s 0s,transform .25s;
