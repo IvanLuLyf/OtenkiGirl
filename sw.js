@@ -1,3 +1,4 @@
+const CATCH_VER = 'v6';
 self.addEventListener('install', function (event) {
     let languages = ['zh-cn', 'zh-tw', 'ja', 'en-us'];
     let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
@@ -7,7 +8,7 @@ self.addEventListener('install', function (event) {
         baseDir = '/';
     }
     event.waitUntil(
-        caches.open('v5').then(function (cache) {
+        caches.open(CATCH_VER).then(function (cache) {
             return cache.addAll([
                 baseDir,
                 baseDir + 'index.html',
@@ -22,6 +23,15 @@ self.addEventListener('install', function (event) {
         })
     );
 });
+self.addEventListener('activate', function (event) {
+    event.waitUntil(caches.keys().then(function (names) {
+        return Promise.all(names.map(function (name) {
+            if (name !== CATCH_VER) {
+                return caches.delete(name);
+            }
+        }))
+    }));
+});
 self.addEventListener('fetch', function (event) {
     if (event.request.url.startsWith('https://kvdb.io/')) {
         return;
@@ -32,7 +42,7 @@ self.addEventListener('fetch', function (event) {
         } else {
             return fetch(event.request).then(function (response) {
                 let responseClone = response.clone();
-                caches.open('v5').then(function (cache) {
+                caches.open(CATCH_VER).then(function (cache) {
                     cache.put(event.request, responseClone);
                 });
                 return response;
