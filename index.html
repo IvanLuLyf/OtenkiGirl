@@ -288,7 +288,13 @@
         let posts = [];
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/OtenkiGirl/sw.js', {scope: '/OtenkiGirl/'}).then(res => {
+            let sw = '/OtenkiGirl/sw.js';
+            let scope = '/OtenkiGirl/';
+            if (location.href.indexOf('/OtenkiGirl/') === -1) {
+                sw = '/sw.js';
+                scope = '/';
+            }
+            navigator.serviceWorker.register(sw, {scope: scope}).then(res => {
                 console.log('ServiceWorker Init');
             }).catch(err => {
                 console.log('ServiceWorker Failed')

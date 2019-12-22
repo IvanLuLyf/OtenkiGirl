@@ -2,18 +2,22 @@ self.addEventListener('install', function (event) {
     let languages = ['zh-cn', 'zh-tw', 'ja', 'en-us'];
     let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
     if (languages.indexOf(languageCode) === -1) languageCode = 'zh-cn';
+    let baseDir = '/OtenkiGirl/';
+    if (location.href.indexOf('/OtenkiGirl/') === -1) {
+        baseDir = '/';
+    }
     event.waitUntil(
-        caches.open('v3').then(function (cache) {
+        caches.open('v4').then(function (cache) {
             return cache.addAll([
-                '/OtenkiGirl/',
-                '/OtenkiGirl/index.html',
-                '/OtenkiGirl/favicon.ico',
-                '/OtenkiGirl/dialog.js',
-                '/OtenkiGirl/lang/' + languageCode + '.json',
-                '/OtenkiGirl/img/avatar.jpg',
-                '/OtenkiGirl/img/header.jpg',
-                '/OtenkiGirl/img/left.jpg',
-                '/OtenkiGirl/img/top.jpg',
+                baseDir,
+                baseDir + 'index.html',
+                baseDir + 'favicon.ico',
+                baseDir + 'dialog.js',
+                baseDir + 'lang/' + languageCode + '.json',
+                baseDir + 'img/avatar.jpg',
+                baseDir + 'img/header.jpg',
+                baseDir + 'img/left.jpg',
+                baseDir + 'img/top.jpg',
             ]);
         })
     );
@@ -28,7 +32,7 @@ self.addEventListener('fetch', function (event) {
         } else {
             return fetch(event.request).then(function (response) {
                 let responseClone = response.clone();
-                caches.open('v3').then(function (cache) {
+                caches.open('v4').then(function (cache) {
                     cache.put(event.request, responseClone);
                 });
                 return response;
