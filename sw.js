@@ -7,7 +7,7 @@ self.addEventListener('install', function (event) {
         baseDir = '/';
     }
     event.waitUntil(
-        caches.open('v4').then(function (cache) {
+        caches.open('v5').then(function (cache) {
             return cache.addAll([
                 baseDir,
                 baseDir + 'index.html',
@@ -32,7 +32,7 @@ self.addEventListener('fetch', function (event) {
         } else {
             return fetch(event.request).then(function (response) {
                 let responseClone = response.clone();
-                caches.open('v4').then(function (cache) {
+                caches.open('v5').then(function (cache) {
                     cache.put(event.request, responseClone);
                 });
                 return response;
