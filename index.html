@@ -141,7 +141,7 @@
         }
 
         .card-list {
-            margin: 0 auto;
+            margin: 16px auto;
             padding-inline-start: 0;
             box-sizing: border-box;
             overflow: hidden;
@@ -269,6 +269,10 @@
             position: relative;
             z-index: 5;
         }
+
+        .fr {
+            float: right;
+        }
     </style>
 </head>
 <body>
@@ -311,7 +315,7 @@
         </div>
     </div>
 </div>
-<ul id="post_list" class="mt-1 card-list">
+<ul id="post_list" class="card-list">
 
 </ul>
 <bunny-dialog id="dialog" ok="确定" cancel="取消">
@@ -406,10 +410,11 @@
                     p.place = escapeHtml(p.place);
                     p.reason = escapeHtml(p.reason);
                     p.date = escapeHtml(p.date);
-                    let place = p.place ? `${curLang.place}:${p.place}<br><br>` : '';
-                    let time = p.date ? `${curLang.time}:${p.date}<br><br>` : '';
-                    let reason = p.reason ? `${curLang.reason}:<br>${p.reason}` : '';
-                    l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${p.contact}</h3><p>${place}${time}${reason}</p></a>`;
+                    let place = p.place ? `${curLang.place}:${p.place}<br/><br/>` : '';
+                    let time = p.date ? `${curLang.time}:${p.date}<br/><br/>` : '';
+                    let reason = p.reason ? `${curLang.reason}:${p.reason}` : '';
+                    let date = (new Date(p.timestamp)).toLocaleDateString();
+                    l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${p.contact}</h3><p>${place}${time}${reason}</p><p class="fr">${date}</p></a>`;
                     post_list.prepend(l);
                 })
             });
