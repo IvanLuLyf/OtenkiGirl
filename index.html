@@ -129,63 +129,79 @@
             max-width: 900px;
         }
 
-        .bubble {
-            display: inline-block;
-            position: relative;
-            padding: 8px;
-            font-size: 14px;
-            background-color: bisque;
-            margin-top: 20px;
-            border-radius: 4px;
-            max-width: 200px;
-            font-weight: 400;
-            word-wrap: break-word;
-            word-break: normal;
-        }
-
-        .bubble::before, .bubble::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 0;
-            top: 11px;
-        }
-
-        .left .bubble {
-            left: 15px;
-            border: 1px solid burlywood;
-        }
-
-        .left .bubble::before {
-            border-right: 10px solid burlywood;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            left: -10px;
-        }
-
-        .left .bubble::after {
-            border-right: 10px solid bisque;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            left: -8px;
-        }
-
-        .message {
-            clear: both;
-            display: flex;
-            padding: 4px 10px;
-        }
-
         .avatar {
-            width: 48px;
-            height: 48px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
+            margin-right: 8px;
         }
 
-        .message.left span {
-            position: absolute;
-            left: 74px;
+        .card-list, .card-list li {
+            list-style: none;
+        }
+
+        .card-list {
+            overflow: hidden;
+            padding: 3em;
+        }
+
+        .card-list li a {
+            text-decoration: none;
+            color: #000;
+            background: #ffc;
+            display: block;
+            height: 14em;
+            width: 16em;
+            padding: 1em;
+            box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+            transition: transform .15s linear;
+        }
+
+        .card-list li {
+            margin: 1em;
+            float: left;
+        }
+
+        .card-list li h3 {
+            font-weight: bold;
+            padding-bottom: 10px;
             font-size: 14px;
+        }
+
+        .card-list li p {
+            font-family: "Reenie Beanie", arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .card-list li a {
+            transform: rotate(-6deg);
+        }
+
+        .card-list li:nth-child(even) a {
+            transform: rotate(4deg);
+            position: relative;
+            top: 5px;
+            background: #cfc;
+        }
+
+        .card-list li:nth-child(3n) a {
+            transform: rotate(-3deg);
+            position: relative;
+            top: -5px;
+            background: #ccf;
+        }
+
+        .card-list li:nth-child(5n) a {
+            transform: rotate(5deg);
+            position: relative;
+            top: -10px;
+        }
+
+        .card-list li a:hover, ul li a:focus {
+            box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+            transform: scale(1.25);
+            position: relative;
+            z-index: 5;
         }
     </style>
 </head>
@@ -229,9 +245,9 @@
         </div>
     </div>
 </div>
-<div id="post_list" class="mt-1">
+<ul id="post_list" class="mt-1 card-list">
 
-</div>
+</ul>
 <bunny-dialog id="dialog" ok="确定" cancel="取消">
     <p id="tips"></p>
 </bunny-dialog>
@@ -312,7 +328,7 @@
                 posts = r || [];
                 post_list.innerHTML = '';
                 posts.forEach(i => {
-                    let l = document.createElement('div');
+                    let l = document.createElement('li');
                     let p = JSON.parse(i[1]);
                     p.contact = escapeHtml(p.contact);
                     p.place = escapeHtml(p.place);
@@ -321,8 +337,7 @@
                     let place = p.place ? `${curLang.place}:${p.place}<br><br>` : '';
                     let time = p.date ? `${curLang.time}:${p.date}<br><br>` : '';
                     let reason = p.reason ? `${curLang.reason}:<br>${p.reason}` : '';
-                    l.innerHTML = `<span>${p.contact}</span><img alt="avatar" class="avatar" src="img/avatar.jpg"/><div class="bubble">${place}${time}${reason}</div>`;
-                    l.classList.add('message', 'left');
+                    l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${p.contact}</h3><p>${place}${time}${reason}</p></a>`;
                     post_list.prepend(l);
                 })
             });

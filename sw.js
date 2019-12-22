@@ -3,7 +3,7 @@ self.addEventListener('install', function (event) {
     let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
     if (languages.indexOf(languageCode) === -1) languageCode = 'zh-cn';
     event.waitUntil(
-        caches.open('v1').then(function (cache) {
+        caches.open('v2').then(function (cache) {
             return cache.addAll([
                 '/OtenkiGirl/',
                 '/OtenkiGirl/index.html',
