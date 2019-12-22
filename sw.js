@@ -3,7 +3,7 @@ self.addEventListener('install', function (event) {
     let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
     if (languages.indexOf(languageCode) === -1) languageCode = 'zh-cn';
     event.waitUntil(
-        caches.open('v2').then(function (cache) {
+        caches.open('v3').then(function (cache) {
             return cache.addAll([
                 '/OtenkiGirl/',
                 '/OtenkiGirl/index.html',
@@ -28,7 +28,7 @@ self.addEventListener('fetch', function (event) {
         } else {
             return fetch(event.request).then(function (response) {
                 let responseClone = response.clone();
-                caches.open('v2').then(function (cache) {
+                caches.open('v3').then(function (cache) {
                     cache.put(event.request, responseClone);
                 });
                 return response;
