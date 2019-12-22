@@ -141,14 +141,18 @@
         }
 
         .card-list {
+            margin: 0 auto;
+            width: 100%;
+            padding-inline-start: 0;
             overflow: hidden;
-            padding: 3em;
+            padding: 2em;
         }
 
         .card-list li a {
             text-decoration: none;
             color: #000;
             background: #ffc;
+            border: #f0f0c0 1px solid;
             display: block;
             height: 14em;
             width: 14em;
@@ -182,6 +186,7 @@
             position: relative;
             top: 5px;
             background: #cfc;
+            border: #c0f0c0 1px solid;
         }
 
         .card-list li:nth-child(3n) a {
@@ -189,6 +194,7 @@
             position: relative;
             top: -5px;
             background: #ccf;
+            border: #c0c0f0 1px solid;
         }
 
         .card-list li:nth-child(4n) a {
@@ -196,6 +202,7 @@
             position: relative;
             top: 5px;
             background: #fcf;
+            border: #f0c0f0 1px solid;
         }
 
         .card-list li:nth-child(5n) a {
@@ -209,6 +216,7 @@
             position: relative;
             top: 5px;
             background: #cff;
+            border: #c0f0f0 1px solid;
         }
 
         .card-list li:nth-child(7n) a {
@@ -216,6 +224,13 @@
             position: relative;
             top: -6px;
             background: #fcc;
+            border: #f0c0c0 1px solid;
+        }
+
+        .card-list li:nth-child(8n) a {
+            transform: rotate(-3deg);
+            position: relative;
+            top: -10px;
         }
 
         .card-list li a:hover, ul li a:focus {
