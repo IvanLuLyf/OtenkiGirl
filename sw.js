@@ -1,4 +1,4 @@
-const CATCH_VER = 'v11';
+const CATCH_VER = 'v12';
 self.addEventListener('install', function (event) {
     let languages = ['zh-cn', 'zh-tw', 'ja', 'en-us'];
     let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
@@ -33,7 +33,7 @@ self.addEventListener('activate', function (event) {
     }));
 });
 self.addEventListener('fetch', function (event) {
-    if (event.request.url.startsWith('https://kvdb.io/')) {
+    if (!event.request.url.startsWith(location.origin)) {
         return;
     }
     event.respondWith(caches.match(event.request).then(function (response) {
