@@ -391,26 +391,29 @@
                 txtReason.placeholder = curLang.prompt;
                 dialog.ok = curLang.ok;
                 dialog.cancel = curLang.cancel;
+                loadContent();
             })
         }
 
-        wishes.map().on((wish, id) => {
-            let l = document.getElementById(id);
-            if (!l) {
-                l = document.createElement('li');
-                l.id = id;
-                wish.contact = escapeHtml(wish.contact);
-                wish.place = escapeHtml(wish.place);
-                wish.reason = escapeHtml(wish.reason);
-                wish.date = escapeHtml(wish.date);
-                let place = wish.place ? `${curLang.place}:${wish.place}<br/><br/>` : '';
-                let time = wish.date ? `${curLang.time}:${wish.date}<br/><br/>` : '';
-                let reason = wish.reason ? `${curLang.reason}:${wish.reason}` : '';
-                let date = (new Date(wish.timestamp)).toLocaleDateString();
-                l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${wish.contact}</h3><p>${place}${time}${reason}</p><p class="fr">${date}</p></a>`;
-                post_list.prepend(l);
-            }
-        });
+        function loadContent() {
+            wishes.map().on((wish, id) => {
+                let l = document.getElementById(id);
+                if (!l) {
+                    l = document.createElement('li');
+                    l.id = id;
+                    wish.contact = escapeHtml(wish.contact);
+                    wish.place = escapeHtml(wish.place);
+                    wish.reason = escapeHtml(wish.reason);
+                    wish.date = escapeHtml(wish.date);
+                    let place = wish.place ? `${curLang.place}:${wish.place}<br/><br/>` : '';
+                    let time = wish.date ? `${curLang.time}:${wish.date}<br/><br/>` : '';
+                    let reason = wish.reason ? `${curLang.reason}:${wish.reason}` : '';
+                    let date = (new Date(wish.timestamp)).toLocaleDateString();
+                    l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${wish.contact}</h3><p>${place}${time}${reason}</p><p class="fr">${date}</p></a>`;
+                    post_list.prepend(l);
+                }
+            });
+        }
 
         function escapeHtml(unsafe) {
             return unsafe
