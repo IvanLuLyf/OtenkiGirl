@@ -323,6 +323,7 @@
     <p id="tips"></p>
 </bunny-dialog>
 <script src="dialog.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 <script>
     'use strict';
     (function () {
@@ -334,8 +335,8 @@
         let post_list = document.getElementById('post_list');
         let dialog = document.getElementById('dialog');
         let dialogTip = document.getElementById('tips');
-        let conf = {token: 'VHhRZrX6NPTUn8gXc2Cobv'};
-        let posts = [];
+        let gun = Gun('https://otenkigirl.herokuapp.com/gun');
+        let wishes = gun.get('wishes');
 
         if ('serviceWorker' in navigator) {
             let sw = '/OtenkiGirl/sw.js';
@@ -393,33 +394,23 @@
             })
         }
 
-        function loadContent() {
-            fetch("https://kvdb.io/" + conf.token + "/?regex=%5Epost_&format=json&values=true")
-                .catch(err => {
-                    dialogTip.innerHTML = curLang.network_error;
-                    dialog.cancel = "";
-                    dialog.visible = true;
-                    return Promise.reject();
-                }).then(r => r.json()).catch(err => {
-            }).then(r => {
-                posts = r || [];
-                post_list.innerHTML = '';
-                posts.forEach(i => {
-                    let l = document.createElement('li');
-                    let p = JSON.parse(i[1]);
-                    p.contact = escapeHtml(p.contact);
-                    p.place = escapeHtml(p.place);
-                    p.reason = escapeHtml(p.reason);
-                    p.date = escapeHtml(p.date);
-                    let place = p.place ? `${curLang.place}:${p.place}<br/><br/>` : '';
-                    let time = p.date ? `${curLang.time}:${p.date}<br/><br/>` : '';
-                    let reason = p.reason ? `${curLang.reason}:${p.reason}` : '';
-                    let date = (new Date(p.timestamp)).toLocaleDateString();
-                    l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${p.contact}</h3><p>${place}${time}${reason}</p><p class="fr">${date}</p></a>`;
-                    post_list.prepend(l);
-                })
-            });
-        }
+        wishes.map().on((wish, id) => {
+            let l = document.getElementById(id);
+            if (!l) {
+                l = document.createElement('li');
+                l.id = id;
+                wish.contact = escapeHtml(wish.contact);
+                wish.place = escapeHtml(wish.place);
+                wish.reason = escapeHtml(wish.reason);
+                wish.date = escapeHtml(wish.date);
+                let place = wish.place ? `${curLang.place}:${wish.place}<br/><br/>` : '';
+                let time = wish.date ? `${curLang.time}:${wish.date}<br/><br/>` : '';
+                let reason = wish.reason ? `${curLang.reason}:${wish.reason}` : '';
+                let date = (new Date(wish.timestamp)).toLocaleDateString();
+                l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${wish.contact}</h3><p>${place}${time}${reason}</p><p class="fr">${date}</p></a>`;
+                post_list.prepend(l);
+            }
+        });
 
         function escapeHtml(unsafe) {
             return unsafe
@@ -457,17 +448,11 @@
                 txtPlace.value = '';
                 txtContact.value = '';
                 txtReason.value = '';
-                fetch("https://kvdb.io/" + conf.token + "/post_" + post.timestamp, {
-                    'method': 'POST',
-                    'body': JSON.stringify(post)
-                }).then(r => {
-                    loadContent();
-                });
+                wishes.get(Gun.text.random()).put(post);
             });
         });
 
         initLanguage();
-        loadContent();
     })();
 </script>
 </body>
