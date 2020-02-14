@@ -336,7 +336,7 @@
         let dialog = document.getElementById('dialog');
         let dialogTip = document.getElementById('tips');
         let gun = Gun('https://otenkigirl.herokuapp.com/gun');
-        let wishes = gun.get('wishes');
+        let wishes = null;
 
         if ('serviceWorker' in navigator) {
             let sw = '/OtenkiGirl/sw.js';
@@ -377,7 +377,10 @@
             let languages = ['zh-cn', 'zh-tw', 'ja', 'en-us'];
             let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
             if (languages.indexOf(languageCode) === -1) languageCode = 'zh-cn';
-            if (languageCode === 'zh-cn') return;
+            if (languageCode === 'zh-cn') {
+                loadContent();
+                return;
+            }
             fetch('lang/' + languageCode + '.json').then(r => r.json()).then(r => {
                 curLang = r;
                 document.title = curLang.title;
@@ -396,6 +399,7 @@
         }
 
         function loadContent() {
+            wishes = gun.get('wishes');
             wishes.map().on((wish, id) => {
                 let l = document.getElementById(id);
                 if (!l) {
@@ -424,7 +428,13 @@
                 .replace(/'/g, "&#039;");
         }
 
-        btnAddCart.addEventListener('click', function (e) {
+        btnAddCart.addEventListener('click', _ => {
+            if (!wishes) {
+                dialogTip.innerHTML = curLang.network_error;
+                dialog.cancel = "";
+                dialog.visible = true;
+                return;
+            }
             if (!txtContact.value) {
                 dialogTip.innerHTML = curLang.empty_contact;
                 dialog.cancel = "";
