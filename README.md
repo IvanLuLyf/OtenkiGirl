@@ -7,26 +7,31 @@
 </div>
 
 
+# 简介
 
 模仿《天气之子》中出现的网站
 
-纯前端,无其他依赖,后端数据使用[kvdb.io](https://kvdb.io)
+纯前端,无其他依赖,后端数据使用[GUN](https://github.com/amark/gun)
 
 日语翻译 [@MidoriMeng](https://github.com/MidoriMeng)
 
 开源许可 MIT
 
+# Description
+
 Imitating the website showed in "Weathering With You"
 
-Pure Frontend,dependence free,using [kvdb.io](https://kvdb.io) as backend
+Pure Frontend,dependence free,using [GUN](https://github.com/amark/gun) as backend
 
 Japanese translation by [@MidoriMeng](https://github.com/MidoriMeng)
 
 License MIT
 
+# 説明
+
 「天気の子」に登場するサイトを実装してみた
 
-フロントエンドのみ、依存関係なし、バックエンドはkvdb.io
+フロントエンドのみ、依存関係なし、バックエンドは[GUN](https://github.com/amark/gun)
 
 日本語翻訳 [@MidoriMeng](https://github.com/MidoriMeng)
 
