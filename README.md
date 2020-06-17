@@ -4,7 +4,11 @@
 
 [DEMO](https://ivanlulyf.github.io/OtenkiGirl/)
 
+![License](https://img.shields.io/github/license/IvanLuLyf/OtenkiGirl?style=flat-square)
+![GitHub deployments](https://img.shields.io/github/deployments/IvanLuLyf/OtenkiGirl/github-pages?label=deployment&style=flat-square)
+
 </div>
+
 
 
 # 简介
@@ -15,8 +19,6 @@
 
 日语翻译 [@MidoriMeng](https://github.com/MidoriMeng)
 
-开源许可 MIT
-
 # Description
 
 Imitating the website showed in "Weathering With You"
@@ -25,8 +27,6 @@ Pure Frontend,dependence free,using [GUN](https://github.com/amark/gun) as backe
 
 Japanese translation by [@MidoriMeng](https://github.com/MidoriMeng)
 
-License MIT
-
 # 説明
 
 「天気の子」に登場するサイトを実装してみた
@@ -34,5 +34,3 @@ License MIT
 フロントエンドのみ、依存関係なし、バックエンドは[GUN](https://github.com/amark/gun)
 
 日本語翻訳 [@MidoriMeng](https://github.com/MidoriMeng)
-
-ライセンス MIT
