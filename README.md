@@ -4,8 +4,10 @@
 
 [DEMO](https://ivanlulyf.github.io/OtenkiGirl/)
 
-![License](https://img.shields.io/github/license/IvanLuLyf/OtenkiGirl?style=flat-square)
-![GitHub deployments](https://img.shields.io/github/deployments/IvanLuLyf/OtenkiGirl/github-pages?label=deployment&style=flat-square)
+[![License](https://img.shields.io/github/license/IvanLuLyf/OtenkiGirl?style=flat-square)](License)
+[![GitHub deployments](https://img.shields.io/github/deployments/IvanLuLyf/OtenkiGirl/github-pages?label=deployment&style=flat-square)](https://ivanlulyf.github.io/OtenkiGirl/)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/IvanLuLyf/OtenkiGirl?style=flat-square)
+![GitHub Repo stars](https://img.shields.io/github/stars/IvanLuLyf/OtenkiGirl?logo=github&style=flat-square)
 
 </div>
 
