@@ -1,34 +1,24 @@
-const CATCH_VER = 'v17';
+const CATCH_VER = 'v18';
 const IS_DEV = location.hostname === 'localhost';
 const APP_NAME = 'OtenkiGirl';
-const LANGUAGES = ['zh-cn', 'zh-tw', 'ja', 'en'];
-const appLang = () => {
-    const full = (navigator.language || 'zh-cn').toLowerCase().substring(0, 5);
-    const short = full.substring(0, 2);
-    if (LANGUAGES.includes(short)) return short;
-    else if (LANGUAGES.includes(full)) return full;
-    else return 'zh-cn';
-}
+const CACHE_FILES = [
+    '',
+    'index.html',
+    'favicon.ico',
+    'dialog.js',
+    'img/avatar.jpg',
+    'img/header.jpg',
+    'img/left.jpg',
+    'img/top.jpg',
+];
 self.addEventListener('install', (event) => {
     let baseDir = location.href.indexOf(`/${APP_NAME}/`) < 0 ? '/' : `/${APP_NAME}/`;
-    const CACHE_FILES = [
-        '',
-        'index.html',
-        'favicon.ico',
-        'dialog.js',
-        `lang/${appLang()}.json`,
-        'img/avatar.jpg',
-        'img/header.jpg',
-        'img/left.jpg',
-        'img/top.jpg',
-    ].map(u => `${baseDir}${u}`)
-    event.waitUntil(caches.open(CATCH_VER).then((cache) => cache.addAll(CACHE_FILES)));
+    const FILES = CACHE_FILES.map(u => `${baseDir}${u}`)
+    event.waitUntil(caches.open(CATCH_VER).then((cache) => cache.addAll(FILES)));
 });
 self.addEventListener('activate', (event) => {
     event.waitUntil(caches.keys().then((names) => Promise.all(names.map((name) => {
-        if (name !== CATCH_VER) {
-            return caches.delete(name);
-        }
+        if (name !== CATCH_VER) return caches.delete(name);
     }))));
 });
 self.addEventListener('fetch', (event) => {

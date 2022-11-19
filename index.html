@@ -374,7 +374,7 @@
             });
         }
         const appLang = () => {
-            const full = (navigator.language || DEFAULT_LANG).toLowerCase().substring(0, 5);
+            const full = (localStorage['og_language'] || navigator.language || DEFAULT_LANG).toLowerCase().substring(0, 5);
             const short = full.substring(0, 2);
             if (LANGUAGES.includes(short)) return short;
             else if (LANGUAGES.includes(full)) return full;
@@ -383,10 +383,12 @@
         const initLanguage = () => new Promise(resolve => {
             const lang = appLang();
             if (lang === DEFAULT_LANG) {
+                curLang = DEFAULT_LANGUAGE;
                 replaceLanguage(curLang);
                 resolve();
             } else {
                 fetch(`lang/${lang}.json`).then(r => r.json()).then(r => {
+                    document.querySelector('html').lang = lang;
                     curLang = r;
                     replaceLanguage(curLang);
                     resolve();
@@ -446,6 +448,9 @@
                 reset();
                 wishes.get(Gun.text.random()).put(post);
             });
+        });
+        window.addEventListener("storage", (e) => {
+            if (e.key === "og_language") initLanguage().then(() => loadContent());
         });
 
         initLanguage().then(() => loadContent());
