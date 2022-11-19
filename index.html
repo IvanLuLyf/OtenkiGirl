@@ -378,19 +378,21 @@
         }
         const $q = (s) => document.querySelectorAll(s);
         const escapeHtml = (unsafe) => (unsafe || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        const replaceLanguage = (lang) => {
-            document.title = lang.title;
-            [...$q('[data-lang]')].forEach((el) => el.innerHTML = lang[el.dataset.lang]);
-            [...$q('[data-need]')].forEach((el) => el.setAttribute("data-need", lang.need));
+        const replaceLanguage = (lang, t) => {
+            curLang = t;
+            document.querySelector('html').lang = lang;
+            document.title = t.title;
+            [...$q('[data-lang]')].forEach((el) => el.innerHTML = t[el.dataset.lang]);
+            [...$q('[data-need]')].forEach((el) => el.setAttribute("data-need", t.need));
             [...$q('[data-lang-attrs]')].forEach((el) => {
                 const names = el.dataset.langAttrs || "";
                 if (!names) return;
-                (names).split(",").forEach((n) => el.setAttribute(n, lang[el.getAttribute(`data-lang-${n}`)]));
+                (names).split(",").forEach((n) => el.setAttribute(n, t[el.getAttribute(`data-lang-${n}`)]));
             });
             [...$q('[data-lang-styles]')].forEach((el) => {
                 const names = el.dataset.langStyles || "";
                 if (!names) return;
-                (names).split(",").forEach((n) => el.style.setProperty(`--data-lang-text-${n}`, `'${lang[n]}'`));
+                (names).split(",").forEach((n) => el.style.setProperty(`--data-lang-text-${n}`, `'${t[n]}'`));
             });
         }
         const appLang = () => {
@@ -403,18 +405,14 @@
         const initLanguage = () => new Promise(resolve => {
             const lang = appLang();
             if (lang === DEFAULT_LANG) {
-                curLang = DEFAULT_LANGUAGE;
-                replaceLanguage(curLang);
+                replaceLanguage(lang, DEFAULT_LANGUAGE);
                 resolve();
             } else {
                 fetch(`lang/${lang}.json`).then(r => r.json()).then(r => {
-                    document.querySelector('html').lang = lang;
-                    curLang = r;
-                    replaceLanguage(curLang);
+                    replaceLanguage(lang, r);
                     resolve();
                 }).catch(() => {
-                    curLang = DEFAULT_LANGUAGE;
-                    replaceLanguage(curLang);
+                    replaceLanguage(DEFAULT_LANG, DEFAULT_LANGUAGE);
                     resolve();
                 })
             }
