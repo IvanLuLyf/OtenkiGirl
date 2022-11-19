@@ -10,7 +10,7 @@ const appLang = () => {
     else return 'zh-cn';
 }
 self.addEventListener('install', (event) => {
-    let baseDir = location.href.indexOf(`/${APP_NAME}/`) > 0 ? '/' : `/${APP_NAME}/`;
+    let baseDir = location.href.indexOf(`/${APP_NAME}/`) < 0 ? '/' : `/${APP_NAME}/`;
     const CACHE_FILES = [
         '',
         'index.html',

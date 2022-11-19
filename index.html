@@ -352,7 +352,7 @@
         let wishes = null;
 
         if ('serviceWorker' in navigator) {
-            const isRoot = location.href.indexOf(`/${APP_NAME}/`) > 0;
+            const isRoot = location.href.indexOf(`/${APP_NAME}/`) < 0;
             let sw = isRoot ? '/sw.js' : `/${APP_NAME}/sw.js`;
             let scope = isRoot ? '/' : `/${APP_NAME}/`;
             navigator.serviceWorker.register(sw, {scope}).then(() => {
