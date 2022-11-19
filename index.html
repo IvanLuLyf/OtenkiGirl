@@ -153,6 +153,9 @@
             max-width: 1300px;
             overflow: hidden;
             padding: 1.5em;
+            --data-lang-text-place: '';
+            --data-lang-text-time: '';
+            --data-lang-text-reason: '';
         }
 
         @media screen and (min-width: 354px) {
@@ -272,6 +275,18 @@
             z-index: 5;
         }
 
+        .item-place:before {
+            content: var(--data-lang-text-place) ': ';
+        }
+
+        .item-time:before {
+            content: var(--data-lang-text-time) ': ';
+        }
+
+        .item-reason:before {
+            content: var(--data-lang-text-reason) ': ';
+        }
+
         .fr {
             float: right;
         }
@@ -310,7 +325,7 @@
             </form>
         </div>
     </div>
-    <ul id="post_list" class="card-list"></ul>
+    <ul id="post_list" class="card-list" data-lang-styles="place,time,reason"></ul>
     <bunny-dialog id="dialog" data-lang-attrs="ok,cancel" data-lang-ok="ok" data-lang-cancel="cancel">
         <p id="tips"></p>
     </bunny-dialog>
@@ -365,12 +380,17 @@
         const escapeHtml = (unsafe) => (unsafe || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         const replaceLanguage = (lang) => {
             document.title = lang.title;
-            [...$q("[data-lang]")].forEach((el) => el.innerHTML = lang[el.dataset.lang]);
-            [...$q("[data-need]")].forEach((el) => el.setAttribute("data-need", lang.need));
-            [...$q("[data-lang-attrs]")].forEach((el) => {
+            [...$q('[data-lang]')].forEach((el) => el.innerHTML = lang[el.dataset.lang]);
+            [...$q('[data-need]')].forEach((el) => el.setAttribute("data-need", lang.need));
+            [...$q('[data-lang-attrs]')].forEach((el) => {
                 const names = el.dataset.langAttrs || "";
                 if (!names) return;
                 (names).split(",").forEach((n) => el.setAttribute(n, lang[el.getAttribute(`data-lang-${n}`)]));
+            });
+            [...$q('[data-lang-styles]')].forEach((el) => {
+                const names = el.dataset.langStyles || "";
+                if (!names) return;
+                (names).split(",").forEach((n) => el.style.setProperty(`--data-lang-text-${n}`, `'${lang[n]}'`));
             });
         }
         const appLang = () => {
@@ -411,9 +431,9 @@
                     wish.place = escapeHtml(wish.place);
                     wish.reason = escapeHtml(wish.reason);
                     wish.date = escapeHtml(wish.date);
-                    let place = wish.place ? `${curLang.place}:${wish.place}<br/><br/>` : '';
-                    let time = wish.date ? `${curLang.time}:${wish.date}<br/><br/>` : '';
-                    let reason = wish.reason ? `${curLang.reason}:${wish.reason}` : '';
+                    let place = wish.place ? `<div class="item-place">${wish.place}</div>` : '';
+                    let time = wish.date ? `<div class="item-time">${wish.date}</div>` : '';
+                    let reason = wish.reason ? `<div class="item-reason">${wish.reason}</div>` : '';
                     let date = (new Date(wish.timestamp)).toLocaleDateString();
                     l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${wish.contact}</h3><p>${place}${time}${reason}</p><p class="fr">${date}</p></a>`;
                     post_list.prepend(l);
