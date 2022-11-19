@@ -8,44 +8,65 @@
     <link rel="icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
     <style>
-        .header-pic {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .out-box {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-areas: "head head" "left main";
+            margin: 0 auto;
+            padding: 16px;
             width: 100%;
-            display: block
+            max-width: 900px;
+        }
+
+        .header-pic, .left-pic {
+            display: block;
+            width: 100%
+        }
+
+        .header-pic {
+            grid-area: head;
         }
 
         .left-pic {
-            width: 45%;
-            display: inline-block
+            grid-area: left;
         }
 
         .top-pic {
+            grid-area: head;
             display: none;
         }
 
         .container {
-            padding-left: 20px;
-            width: 45%;
-            display: inline-block;
-        }
-
-        .two-column-parent {
+            grid-area: main;
             display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background-color: bisque;
+            border-radius: 10px;
+            padding: 16px 20px;
+            box-shadow: rgb(85, 85, 85) 0 0 5px;
         }
 
-        .two-column {
-            margin-top: 8px;
-            display: inline-block;
-            width: 50%;
-            box-sizing: border-box;
-            padding-right: 10px;
+        .form-two-column {
+            display: flex;
+            gap: 8px;
+            width: 100%;
         }
 
-        @media screen and (max-width: 650px) {
-            .header-pic {
-                display: none;
+        @media screen and (max-width: 750px) {
+            .out-box {
+                grid-template-columns: 1fr;
+                grid-template-areas: "head" "main";
             }
 
-            .left-pic {
+            .header-pic, .left-pic {
                 display: none;
             }
 
@@ -54,36 +75,14 @@
                 display: block;
             }
 
-            .container {
-                padding-left: 0;
-                width: 100%;
-                display: block;
+            .form-two-column {
+                flex-direction: column;
             }
-
-            .two-column {
-                margin-top: 8px;
-                display: block;
-                width: 100%;
-                padding-right: 0;
-            }
-
-            .two-column-parent {
-                display: block;
-            }
-        }
-
-        .box {
-            background-color: bisque;
-            border-radius: 10px;
-            margin: 3px 0;
-            padding: 5px 20px;
-            box-shadow: rgb(85, 85, 85) 0 0 5px;
         }
 
         .price {
             font-size: 20px;
             color: red;
-            padding: 15px 0 0 0;
         }
 
         .add-cart {
@@ -93,7 +92,7 @@
             border-radius: 20px;
             color: white;
             padding: 8px 20px;
-            margin: 12px 0 0 0;
+            outline: none;
         }
 
         .text-box {
@@ -103,7 +102,23 @@
             padding: 6px;
             border: chocolate 1px solid;
             border-radius: 2px;
-            box-sizing: border-box;
+            outline: none;
+            resize: vertical;
+        }
+
+        .text-box:focus, .text-box:active {
+            border: #ffa155 1px solid;
+        }
+
+        .form-main {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-item {
+            width: 100%;
         }
 
         .input-label {
@@ -112,22 +127,10 @@
             padding: 0;
         }
 
-        .mt-1 {
-            margin-top: 8px;
-        }
-
-        .mb-1 {
-            margin-bottom: 8px;
-        }
-
-        .need {
+        .input-label:after {
+            margin-left: 4px;
+            content: attr(data-need);
             color: red;
-        }
-
-        .out-box {
-            margin: 0 auto;
-            width: 100%;
-            max-width: 900px;
         }
 
         .avatar {
@@ -142,59 +145,53 @@
         }
 
         .card-list {
+            --list-column: 5;
+            display: grid;
+            grid-template-columns: repeat(var(--list-column), 1fr);
             margin: 16px auto;
             padding-inline-start: 0;
-            box-sizing: border-box;
+            max-width: 1300px;
             overflow: hidden;
-            padding: 0.5em;
+            padding: 1.5em;
         }
 
         @media screen and (min-width: 354px) {
             .card-list {
-                width: 334px;
+                --list-column: 1;
             }
         }
 
         @media screen and (min-width: 647px) {
             .card-list {
-                width: 627px;
+                --list-column: 2;
             }
         }
 
         @media screen and (min-width: 934px) {
             .card-list {
-                width: 914px;
+                --list-column: 3;
             }
         }
 
         @media screen and (min-width: 1225px) {
             .card-list {
-                width: 1205px;
+                --list-column: 4;
             }
         }
 
         @media screen and (min-width: 1517px) {
             .card-list {
-                width: 1497px;
+                --list-column: 5;
             }
-        }
-
-        .card-list li a {
-            text-decoration: none;
-            color: #000;
-            background: #ffc;
-            border: #f0f0c0 1px solid;
-            display: block;
-            height: 14em;
-            width: 14em;
-            padding: 1em;
-            box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
-            transition: transform .15s linear;
         }
 
         .card-list li {
             margin: 1em;
             float: left;
+            --item-top: 0;
+            --item-back: #ffc;
+            --item-border: #f0f0c0;
+            --item-rotate: -6deg;
         }
 
         .card-list li h3 {
@@ -209,63 +206,67 @@
         }
 
         .card-list li a {
-            transform: rotate(-6deg);
+            position: relative;
+            text-decoration: none;
+            color: #000;
+            display: block;
+            height: 14em;
+            padding: 1em;
+            box-shadow: 5px 5px 7px #2121213d;
+            transition: transform .15s linear;
+            top: var(--item-top);
+            background: var(--item-back);
+            border: 1px solid var(--item-border);
+            transform: rotate(var(--item-rotate));
         }
 
-        .card-list li:nth-child(even) a {
-            transform: rotate(4deg);
-            position: relative;
-            top: 5px;
-            background: #cfc;
-            border: #c0f0c0 1px solid;
+        .card-list li:nth-child(even) {
+            --item-rotate: 4deg;
+            --item-top: 5px;
+            --item-back: #cfc;
+            --item-border: #c0f0c0;
         }
 
-        .card-list li:nth-child(3n) a {
-            transform: rotate(-3deg);
-            position: relative;
-            top: -5px;
-            background: #ccf;
-            border: #c0c0f0 1px solid;
+        .card-list li:nth-child(3n) {
+            --item-rotate: -3deg;
+            --item-top: -5px;
+            --item-back: #ccf;
+            --item-border: #c0c0f0;
         }
 
-        .card-list li:nth-child(4n) a {
-            transform: rotate(4deg);
-            position: relative;
-            top: 5px;
-            background: #fcf;
-            border: #f0c0f0 1px solid;
+        .card-list li:nth-child(4n) {
+            --item-rotate: 4deg;
+            --item-top: 5px;
+            --item-back: #fcf;
+            --item-border: #f0c0f0;
         }
 
-        .card-list li:nth-child(5n) a {
-            transform: rotate(5deg);
-            position: relative;
-            top: -10px;
+        .card-list li:nth-child(5n) {
+            --item-rotate: 5deg;
+            --item-top: -10px;
         }
 
-        .card-list li:nth-child(6n) a {
-            transform: rotate(4deg);
-            position: relative;
-            top: 5px;
-            background: #cff;
-            border: #c0f0f0 1px solid;
+        .card-list li:nth-child(6n) {
+            --item-rotate: 4deg;
+            --item-top: 5px;
+            --item-back: #cff;
+            --item-border: #c0f0f0;
         }
 
-        .card-list li:nth-child(7n) a {
-            transform: rotate(-5deg);
-            position: relative;
-            top: -6px;
-            background: #fcc;
-            border: #f0c0c0 1px solid;
+        .card-list li:nth-child(7n) {
+            --item-rotate: -5deg;
+            --item-top: -6px;
+            --item-back: #fcc;
+            --item-border: #f0c0c0;
         }
 
         .card-list li:nth-child(8n) a {
-            transform: rotate(-3deg);
-            position: relative;
-            top: -10px;
+            --item-rotate: -3deg;
+            --item-top: -10px;
         }
 
         .card-list li a:hover, ul li a:focus {
-            box-shadow: 7px 7px 10px rgba(0, 0, 0, .5);
+            box-shadow: 7px 7px 10px #00000047;
             transform: scale(1.04);
             position: relative;
             z-index: 5;
@@ -277,85 +278,52 @@
     </style>
 </head>
 <body>
-<div class="out-box">
-    <img class="top-pic" src="img/top.jpg" alt="TOP">
-    <img class="header-pic" src="img/header.jpg" alt="HEADER">
-    <img class="left-pic" src="img/left.jpg" alt="LEFT">
-    <div class="container">
-        <div class="box">
-            <div id="price" class="price">
-                ￥220(含税)
-            </div>
-            <div id="intro" class="mt-1">100%晴女为被雨困扰的你带来阳光😆无论什么地点…</div>
-            <form>
-                <div style="text-align: center">
-                    <input id="add_cart" type="button" class="add-cart" value="加入购物车">
+<div>
+    <div class="out-box">
+        <img class="top-pic" src="img/top.jpg" alt="TOP">
+        <img class="header-pic" src="img/header.jpg" alt="HEADER">
+        <img class="left-pic" src="img/left.jpg" alt="LEFT">
+        <div class="container">
+            <div class="price" data-lang="price"></div>
+            <div class="intro" data-lang="intro"></div>
+            <form class="form-main">
+                <button id="add_cart" type="button" class="add-cart" data-lang="add_cart"></button>
+                <div class="form-two-column">
+                    <label class="form-item">
+                        <span class="input-label" data-lang="time"></span>
+                        <input type="text" class="text-box" data-name="date">
+                    </label>
+                    <label class="form-item">
+                        <span class="input-label" data-lang="place"></span>
+                        <input type="text" class="text-box" data-name="place">
+                    </label>
                 </div>
+                <label class="form-item">
+                    <span class="input-label" data-lang="contact" data-need></span>
+                    <input type="text" class="text-box" required data-name="contact">
+                </label>
+                <label class="form-item">
+                    <span class="input-label" data-lang="reason" data-need></span>
+                    <textarea rows="3" cols="20" class="text-box" data-lang-attrs="placeholder"
+                              data-lang-placeholder="prompt" required data-name="reason"></textarea>
+                </label>
             </form>
-            <div class="two-column-parent">
-                <div class="two-column">
-                    <label id="prompt_time" for="input_date" class="input-label">希望的时间</label>
-                    <input id="input_date" type="text" class="text-box">
-                </div>
-                <div class="two-column" style="padding-right: 0">
-                    <label id="prompt_place" for="input_place" class="input-label">希望放晴的地点</label>
-                    <input id="input_place" type="text" class="text-box">
-                </div>
-            </div>
-            <div class="mt-1">
-                <label id="prompt_contact" for="input_contact" class="input-label">联系方式<span
-                        class="need">※必填</span></label>
-                <input id="input_contact" type="text" class="text-box" required>
-            </div>
-            <div class="mt-1 mb-1">
-                <label id="prompt_reason" for="input_reason" class="input-label">想要晴天的理由<span
-                        class="need">※必填</span></label>
-                <textarea id="input_reason" rows="3" cols="20" class="text-box" placeholder="请尽量写得详细一些"
-                          required></textarea>
-            </div>
         </div>
     </div>
+    <ul id="post_list" class="card-list"></ul>
+    <bunny-dialog id="dialog" data-lang-attrs="ok,cancel" data-lang-ok="ok" data-lang-cancel="cancel">
+        <p id="tips"></p>
+    </bunny-dialog>
 </div>
-<ul id="post_list" class="card-list">
-
-</ul>
-<div style="text-align: center;visibility: hidden;">
-    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278616093'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/stat.php%3Fid%3D1278616093%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
-</div>
-<bunny-dialog id="dialog" ok="确定" cancel="取消">
-    <p id="tips"></p>
-</bunny-dialog>
 <script src="dialog.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 <script>
     'use strict';
     (function () {
-        let btnAddCart = document.getElementById('add_cart');
-        let txtDate = document.getElementById('input_date');
-        let txtPlace = document.getElementById('input_place');
-        let txtContact = document.getElementById('input_contact');
-        let txtReason = document.getElementById('input_reason');
-        let post_list = document.getElementById('post_list');
-        let dialog = document.getElementById('dialog');
-        let dialogTip = document.getElementById('tips');
-        let gun = Gun('https://otenkigirl.herokuapp.com/gun');
-        let wishes = null;
-
-        if ('serviceWorker' in navigator) {
-            let sw = '/OtenkiGirl/sw.js';
-            let scope = '/OtenkiGirl/';
-            if (location.href.indexOf('/OtenkiGirl/') === -1) {
-                sw = '/sw.js';
-                scope = '/';
-            }
-            navigator.serviceWorker.register(sw, {scope: scope}).then(res => {
-                console.log('ServiceWorker Init');
-            }).catch(err => {
-                console.log('ServiceWorker Failed')
-            })
-        }
-
-        let curLang = {
+        const APP_NAME = 'OtenkiGirl';
+        const LANGUAGES = ['zh-cn', 'zh-tw', 'ja', 'en'];
+        const DEFAULT_LANG = 'zh-cn';
+        const DEFAULT_LANGUAGE = {
             "title": "100%晴天女孩",
             "price": "￥220(含税)",
             "intro": "100%晴女为被雨困扰的你带来阳光\uD83D\uDE06无论什么地点…",
@@ -375,31 +343,60 @@
             "network_error": "网络错误,请检查网络连接",
         };
 
+        let post_list = document.getElementById('post_list');
+        let dialog = document.getElementById('dialog');
+        let dialogTip = document.getElementById('tips');
 
-        function initLanguage() {
-            let languages = ['zh-cn', 'zh-tw', 'ja', 'en-us'];
-            let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
-            if (languages.indexOf(languageCode) === -1) languageCode = 'zh-cn';
-            if (languageCode === 'zh-cn') {
-                loadContent();
-                return;
-            }
-            fetch('lang/' + languageCode + '.json').then(r => r.json()).then(r => {
-                curLang = r;
-                document.title = curLang.title;
-                document.getElementById('price').innerText = curLang.price;
-                document.getElementById('intro').innerText = curLang.intro;
-                btnAddCart.value = curLang.add_cart;
-                document.getElementById('prompt_time').innerText = curLang.time;
-                document.getElementById('prompt_place').innerText = curLang.place;
-                document.getElementById('prompt_contact').innerHTML = `${curLang.contact}<span class="need">${curLang.need}</span>`;
-                document.getElementById('prompt_reason').innerHTML = `${curLang.reason}<span class="need">${curLang.need}</span>`;
-                txtReason.placeholder = curLang.prompt;
-                dialog.ok = curLang.ok;
-                dialog.cancel = curLang.cancel;
-                loadContent();
+        let curLang = DEFAULT_LANGUAGE;
+        let gun = Gun('https://otenkigirl.herokuapp.com/gun');
+        let wishes = null;
+
+        if ('serviceWorker' in navigator) {
+            const isRoot = location.href.indexOf(`/${APP_NAME}/`) > 0;
+            let sw = isRoot ? '/sw.js' : `/${APP_NAME}/sw.js`;
+            let scope = isRoot ? '/' : `/${APP_NAME}/`;
+            navigator.serviceWorker.register(sw, {scope}).then(() => {
+                console.log('ServiceWorker Init');
+            }).catch(() => {
+                console.log('ServiceWorker Failed')
             })
         }
+        const $q = (s) => document.querySelectorAll(s);
+        const escapeHtml = (unsafe) => (unsafe || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        const replaceLanguage = (lang) => {
+            document.title = lang.title;
+            [...$q("[data-lang]")].forEach((el) => el.innerHTML = lang[el.dataset.lang]);
+            [...$q("[data-need]")].forEach((el) => el.setAttribute("data-need", lang.need));
+            [...$q("[data-lang-attrs]")].forEach((el) => {
+                const names = el.dataset.langAttrs || "";
+                if (!names) return;
+                (names).split(",").forEach((n) => el.setAttribute(n, lang[el.getAttribute(`data-lang-${n}`)]));
+            });
+        }
+        const appLang = () => {
+            const full = (navigator.language || DEFAULT_LANG).toLowerCase().substring(0, 5);
+            const short = full.substring(0, 2);
+            if (LANGUAGES.includes(short)) return short;
+            else if (LANGUAGES.includes(full)) return full;
+            else return DEFAULT_LANG;
+        }
+        const initLanguage = () => new Promise(resolve => {
+            const lang = appLang();
+            if (lang === DEFAULT_LANG) {
+                replaceLanguage(curLang);
+                resolve();
+            } else {
+                fetch(`lang/${lang}.json`).then(r => r.json()).then(r => {
+                    curLang = r;
+                    replaceLanguage(curLang);
+                    resolve();
+                }).catch(() => {
+                    curLang = DEFAULT_LANGUAGE;
+                    replaceLanguage(curLang);
+                    resolve();
+                })
+            }
+        });
 
         function loadContent() {
             wishes = gun.get('wishes');
@@ -422,53 +419,36 @@
             });
         }
 
-        function escapeHtml(unsafe) {
-            return unsafe
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+        const submitCheck = (value) => {
+            if (!wishes) return curLang.network_error;
+            if (!value.contact) return curLang.empty_contact;
+            if (!value.reason) return curLang.empty_reason;
         }
-
-        btnAddCart.addEventListener('click', _ => {
-            if (!wishes) {
-                dialogTip.innerHTML = curLang.network_error;
+        const val = () => {
+            const v = {};
+            [...$q('[data-name]')].forEach(x => v[x.dataset.name] = x.value);
+            return v;
+        }
+        const reset = () => [...$q('[data-name]')].forEach(x => x.value = '');
+        document.getElementById('add_cart').addEventListener('click', _ => {
+            const post = val();
+            let tip = submitCheck(post);
+            if (tip) {
+                dialogTip.innerHTML = tip;
                 dialog.cancel = "";
                 dialog.visible = true;
                 return;
             }
-            if (!txtContact.value) {
-                dialogTip.innerHTML = curLang.empty_contact;
-                dialog.cancel = "";
-                dialog.visible = true;
-                return;
-            }
-            if (!txtReason.value) {
-                dialogTip.innerHTML = curLang.empty_reason;
-                dialog.cancel = "";
-                dialog.visible = true;
-                return;
-            }
-            let post = {
-                date: txtDate.value,
-                place: txtPlace.value,
-                contact: txtContact.value,
-                reason: txtReason.value,
-                timestamp: new Date().getTime()
-            };
+            post.timestamp = new Date().getTime();
             dialog.cancel = curLang.cancel;
             dialogTip.innerText = curLang.confirm;
-            dialog.show(function () {
-                txtDate.value = '';
-                txtPlace.value = '';
-                txtContact.value = '';
-                txtReason.value = '';
+            dialog.show(() => {
+                reset();
                 wishes.get(Gun.text.random()).put(post);
             });
         });
 
-        initLanguage();
+        initLanguage().then(() => loadContent());
     })();
 </script>
 </body>

@@ -1,54 +1,50 @@
-const CATCH_VER = 'v16';
-self.addEventListener('install', function (event) {
-    let languages = ['zh-cn', 'zh-tw', 'ja', 'en-us'];
-    let languageCode = (navigator.language || 'zh-cn').toLocaleLowerCase();
-    if (languages.indexOf(languageCode) === -1) languageCode = 'zh-cn';
-    let baseDir = '/OtenkiGirl/';
-    if (location.href.indexOf('/OtenkiGirl/') === -1) {
-        baseDir = '/';
-    }
-    event.waitUntil(
-        caches.open(CATCH_VER).then(function (cache) {
-            return cache.addAll([
-                baseDir,
-                baseDir + 'index.html',
-                baseDir + 'favicon.ico',
-                baseDir + 'dialog.js',
-                baseDir + 'lang/' + languageCode + '.json',
-                baseDir + 'img/avatar.jpg',
-                baseDir + 'img/header.jpg',
-                baseDir + 'img/left.jpg',
-                baseDir + 'img/top.jpg',
-            ]);
-        })
-    );
+const CATCH_VER = 'v17';
+const IS_DEV = location.hostname === 'localhost';
+const APP_NAME = 'OtenkiGirl';
+const LANGUAGES = ['zh-cn', 'zh-tw', 'ja', 'en'];
+const appLang = () => {
+    const full = (navigator.language || 'zh-cn').toLowerCase().substring(0, 5);
+    const short = full.substring(0, 2);
+    if (LANGUAGES.includes(short)) return short;
+    else if (LANGUAGES.includes(full)) return full;
+    else return 'zh-cn';
+}
+self.addEventListener('install', (event) => {
+    let baseDir = location.href.indexOf(`/${APP_NAME}/`) > 0 ? '/' : `/${APP_NAME}/`;
+    const CACHE_FILES = [
+        '',
+        'index.html',
+        'favicon.ico',
+        'dialog.js',
+        `lang/${appLang()}.json`,
+        'img/avatar.jpg',
+        'img/header.jpg',
+        'img/left.jpg',
+        'img/top.jpg',
+    ].map(u => `${baseDir}${u}`)
+    event.waitUntil(caches.open(CATCH_VER).then((cache) => cache.addAll(CACHE_FILES)));
 });
-self.addEventListener('activate', function (event) {
-    event.waitUntil(caches.keys().then(function (names) {
-        return Promise.all(names.map(function (name) {
-            if (name !== CATCH_VER) {
-                return caches.delete(name);
-            }
-        }))
-    }));
+self.addEventListener('activate', (event) => {
+    event.waitUntil(caches.keys().then((names) => Promise.all(names.map((name) => {
+        if (name !== CATCH_VER) {
+            return caches.delete(name);
+        }
+    }))));
 });
-self.addEventListener('fetch', function (event) {
-    if (!event.request.url.startsWith(location.origin)) {
+self.addEventListener('fetch', (event) => {
+    if (!event.request.url.startsWith(location.origin) || IS_DEV) {
         return;
     }
-    event.respondWith(caches.match(event.request).then(function (response) {
+    event.respondWith(caches.match(event.request).then((response) => {
         if (response !== undefined) {
             return response;
-        } else {
-            return fetch(event.request).then(function (response) {
-                let responseClone = response.clone();
-                caches.open(CATCH_VER).then(function (cache) {
-                    cache.put(event.request, responseClone);
-                });
-                return response;
-            }).catch(function () {
-                return new Response('[]');
-            });
         }
+        return fetch(event.request).then((response) => {
+            const responseClone = response.clone();
+            caches.open(CATCH_VER).then((cache) => {
+                cache.put(event.request, responseClone);
+            });
+            return response;
+        }).catch(() => new Response('[]'));
     }));
 });
