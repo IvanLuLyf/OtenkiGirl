@@ -2,7 +2,7 @@
 
 <a href="https://ivanlulyf.github.io/OtenkiGirl/"><img src="img/top.jpg" width="260"></a>
 
-[DEMO](https://ivanlulyf.github.io/OtenkiGirl/)
+[View Deployment](https://ivanlulyf.github.io/OtenkiGirl/)
 
 [![License](https://img.shields.io/github/license/IvanLuLyf/OtenkiGirl?style=flat-square)](License)
 [![GitHub deployments](https://img.shields.io/github/deployments/IvanLuLyf/OtenkiGirl/github-pages?label=deployment&style=flat-square)](https://ivanlulyf.github.io/OtenkiGirl/)
@@ -10,8 +10,6 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/IvanLuLyf/OtenkiGirl?logo=github&style=flat-square)
 
 </div>
-
-
 
 # 简介
 
