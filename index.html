@@ -17,12 +17,12 @@
         .out-box {
             display: grid;
             gap: 16px;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 12fr 10fr;
             grid-template-areas: "head head" "left main";
             margin: 0 auto;
             padding: 16px;
             width: 100%;
-            max-width: 900px;
+            max-width: 980px;
         }
 
         .header-pic, .left-pic {
@@ -81,18 +81,46 @@
         }
 
         .price {
-            font-size: 20px;
+            font-size: 24px;
             color: red;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .intro {
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .add-cart {
-            width: 200px;
+            display: flex;
+            align-items: center;
+            width: 230px;
             background: red;
             border: none;
-            border-radius: 20px;
+            border-radius: 8px;
             color: white;
-            padding: 8px 20px;
             outline: none;
+            cursor: pointer;
+            margin: 4px 0 8px;
+        }
+
+        .add-cart:hover, .add-cart:active {
+            background: #ff4444;
+        }
+
+        .add-cart-icon {
+            padding: 4px 8px 4px 6px;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .add-cart-text {
+            flex: 1;
+            border-left: 1px solid white;
+            font-weight: bold;
+            padding: 4px;
+            font-size: 16px;
         }
 
         .text-box {
@@ -119,10 +147,12 @@
 
         .form-item {
             width: 100%;
+            line-height: 1;
         }
 
         .input-label {
             font-size: 13px;
+            font-weight: bold;
             margin: 0 0 2px 0;
             padding: 0;
         }
@@ -131,6 +161,7 @@
             margin-left: 4px;
             content: attr(data-need);
             color: red;
+            font-size: 12px;
         }
 
         .avatar {
@@ -138,10 +169,6 @@
             height: 32px;
             border-radius: 50%;
             margin-right: 8px;
-        }
-
-        .card-list, .card-list li {
-            list-style: none;
         }
 
         .card-list {
@@ -188,27 +215,11 @@
             }
         }
 
-        .card-list li {
-            margin: 1em;
-            float: left;
+        .card-list-item {
             --item-top: 0;
             --item-back: #ffc;
             --item-border: #f0f0c0;
             --item-rotate: -6deg;
-        }
-
-        .card-list li h3 {
-            font-weight: bold;
-            padding-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .card-list li p {
-            font-family: "Reenie Beanie", arial, sans-serif;
-            font-size: 12px;
-        }
-
-        .card-list li a {
             position: relative;
             text-decoration: none;
             color: #000;
@@ -221,58 +232,92 @@
             background: var(--item-back);
             border: 1px solid var(--item-border);
             transform: rotate(var(--item-rotate));
+            margin: 1em;
+            cursor: grab;
         }
 
-        .card-list li:nth-child(even) {
+        .card-list-item:active {
+            cursor: grabbing;
+        }
+
+        .card-list-item:nth-child(even) {
             --item-rotate: 4deg;
             --item-top: 5px;
             --item-back: #cfc;
             --item-border: #c0f0c0;
         }
 
-        .card-list li:nth-child(3n) {
+        .card-list-item:nth-child(3n) {
             --item-rotate: -3deg;
             --item-top: -5px;
             --item-back: #ccf;
             --item-border: #c0c0f0;
         }
 
-        .card-list li:nth-child(4n) {
+        .card-list-item:nth-child(4n) {
             --item-rotate: 4deg;
             --item-top: 5px;
             --item-back: #fcf;
             --item-border: #f0c0f0;
         }
 
-        .card-list li:nth-child(5n) {
+        .card-list-item:nth-child(5n) {
             --item-rotate: 5deg;
             --item-top: -10px;
         }
 
-        .card-list li:nth-child(6n) {
+        .card-list-item:nth-child(6n) {
             --item-rotate: 4deg;
             --item-top: 5px;
             --item-back: #cff;
             --item-border: #c0f0f0;
         }
 
-        .card-list li:nth-child(7n) {
+        .card-list-item:nth-child(7n) {
             --item-rotate: -5deg;
             --item-top: -6px;
             --item-back: #fcc;
             --item-border: #f0c0c0;
         }
 
-        .card-list li:nth-child(8n) a {
+        .card-list-item:nth-child(8n) {
             --item-rotate: -3deg;
             --item-top: -10px;
         }
 
-        .card-list li a:hover, ul li a:focus {
+        .card-list-item:hover, .card-list-item:focus {
             box-shadow: 7px 7px 10px #00000047;
             transform: scale(1.04);
             position: relative;
             z-index: 5;
+        }
+
+        .card-list-item:active {
+            box-shadow: 2px 2px 10px #00000047;
+        }
+
+        .item-field {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .item-field:before {
+            color: #666;
+            font-weight: lighter;
+            font-size: 14px;
+        }
+
+        .item-contact {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .item-contact-text {
+            max-width: 180px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .item-place:before {
@@ -287,8 +332,11 @@
             content: var(--data-lang-text-reason) ': ';
         }
 
-        .fr {
-            float: right;
+        .item-datestamp {
+            text-align: right;
+            color: #999;
+            font-weight: lighter;
+            margin-top: 16px;
         }
     </style>
 </head>
@@ -302,7 +350,14 @@
             <div class="price" data-lang="price"></div>
             <div class="intro" data-lang="intro"></div>
             <form class="form-main">
-                <button id="add_cart" type="button" class="add-cart" data-lang="add_cart"></button>
+                <button id="add_cart" type="button" class="add-cart">
+                    <span class="add-cart-icon">
+                        <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor">
+                            <path d="M289.92 768c2.56 0 632.32 0 639.36 0 14.72 0 26.24-12.8 28.16-28.8 0 0 43.52-244.48 64-413.44C1027.2 279.04 1004.8 256 961.92 256L264.96 256 253.44 156.16C251.52 140.8 240.64 128 226.56 128 224.64 128 97.92 128 97.92 128c-17.92 0-32 14.08-32 32 0 17.92 14.08 32 32 32l99.84 0 64.64 547.2C263.68 755.2 275.84 768 289.92 768zM897.92 832c-35.2 0-64 28.8-64 64 0 35.2 28.8 64 64 64 35.2 0 64-28.8 64-64C961.92 860.8 933.12 832 897.92 832zM321.92 832c-35.2 0-64 28.8-64 64 0 35.2 28.8 64 64 64 35.2 0 64-28.8 64-64C385.92 860.8 357.12 832 321.92 832z"></path>
+                        </svg>
+                    </span>
+                    <span class="add-cart-text" data-lang="add_cart"></span>
+                </button>
                 <div class="form-two-column">
                     <label class="form-item">
                         <span class="input-label" data-lang="time"></span>
@@ -325,7 +380,7 @@
             </form>
         </div>
     </div>
-    <ul id="post_list" class="card-list" data-lang-styles="place,time,reason"></ul>
+    <div id="post_list" class="card-list" data-lang-styles="place,time,reason"></div>
     <bunny-dialog id="dialog" data-lang-attrs="ok,cancel" data-lang-ok="ok" data-lang-cancel="cancel">
         <p id="tips"></p>
     </bunny-dialog>
@@ -418,25 +473,26 @@
             }
         });
 
+        const ESCAPE_FIELDS = ["contact", "place", "reason", "date"];
+        const SHOW_FIELDS = ["place", "time", "reason", "datestamp"];
+        const createItem = (it, id) => {
+            let d = document.getElementById(id);
+            if (d) return;
+            d = document.createElement('div');
+            d.id = id;
+            d.classList.add("card-list-item");
+            ESCAPE_FIELDS.forEach(f => it[f] = escapeHtml(it[f]));
+            it.time = it.date;
+            it.datestamp = (new Date(it.timestamp)).toLocaleDateString();
+            let html = `<div class="item-contact"><img alt="avatar" class="avatar" src="img/avatar.jpg"/><div class="item-contact-text">${it.contact}</div></div>`;
+            SHOW_FIELDS.forEach(f => html += `<div class="item-field item-${f}">${it[f] || '--'}</div>`);
+            d.innerHTML = html;
+            post_list.prepend(d);
+        };
+
         function loadContent() {
             wishes = gun.get('wishes');
-            wishes.map().on((wish, id) => {
-                let l = document.getElementById(id);
-                if (!l) {
-                    l = document.createElement('li');
-                    l.id = id;
-                    wish.contact = escapeHtml(wish.contact);
-                    wish.place = escapeHtml(wish.place);
-                    wish.reason = escapeHtml(wish.reason);
-                    wish.date = escapeHtml(wish.date);
-                    let place = wish.place ? `<div class="item-place">${wish.place}</div>` : '';
-                    let time = wish.date ? `<div class="item-time">${wish.date}</div>` : '';
-                    let reason = wish.reason ? `<div class="item-reason">${wish.reason}</div>` : '';
-                    let date = (new Date(wish.timestamp)).toLocaleDateString();
-                    l.innerHTML = `<a><h3><img alt="avatar" class="avatar" src="img/avatar.jpg"/>${wish.contact}</h3><p>${place}${time}${reason}</p><p class="fr">${date}</p></a>`;
-                    post_list.prepend(l);
-                }
-            });
+            wishes.map().on((wish, id) => createItem(wish, id));
         }
 
         const submitCheck = (value) => {
