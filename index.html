@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
     <link rel="icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -338,9 +339,119 @@
             font-weight: lighter;
             margin-top: 16px;
         }
+
+        /* 新增的内容 - NavBar */
+
+        nav {
+            background-color: #CCDFF1;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 40px; /* 增加水平内边距以适当加宽导航栏 */
+        }
+        
+        .left-content,
+        .right-content {
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 将上下横排文本居左 */
+        }
+        .small-text {
+            font-size: 14px;
+            margin-bottom: 10px; /* 增加上下横排文本的间距 */
+        }
+        .large-text {
+            font-size: 18px;
+        }
+
+        /* 动效菜单 */
+        .menu-btn {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 30px;
+            height: 18px;
+        }
+        .menu-icon {
+            width: 23px; /* 将图标的宽度调整为 23px */
+            height: 3px;
+            background-color: white;
+            margin: 2px 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .menu-btn.open .menu-icon:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+        .menu-btn.open .menu-icon:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-btn.open .menu-icon:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+        .menu {
+            display: none;
+            position: absolute;
+            top: 60px; /* 距离顶部的位置 */
+            right: 20px; /* 距离右侧的位置 */
+            background-color: #CCDFF1;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            color: #fff;
+            padding: 10px;
+            animation: fadeInOut 0.5s ease-in-out; /* 添加淡入淡出效果 */
+        }
+        .menu-btn.open + .menu {
+            display: block;
+        }
+        .menu-item {
+            color: white;
+            padding: 10px;
+            transition: background-color 0.3s;
+            animation: fadeInOut 0.5s ease-in-out; /* 添加淡入淡出效果 */
+        }
+        .menu-item:hover {
+            background-color: #555;
+        }
+
+        /* 展开栏淡出淡入 */
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
     </style>
 </head>
 <body>
+<nav>
+    <div class="left-content">
+        <div class="text-container">
+            <span id="date-text" class="small-text"></span>
+            <span class="large-text"><b>TokyoBoy0701 さん</b></span>
+        </div>
+    </div>
+    <div class="right-content menu-btn" id="menuBtn">
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+    </div>
+    <div class="menu" id="menu">
+        <div class="menu-item">菜单项1</div>
+        <div class="menu-item">菜单项2</div>
+        <div class="menu-item">菜单项3</div>
+    </div>
+</nav>
 <div>
     <div class="out-box">
         <img class="top-pic" src="img/top.jpg" alt="TOP">
@@ -529,6 +640,24 @@
 
         initLanguage().then(() => loadContent());
     })();
+</script>
+<script>
+    // 获取当前的日期和星期，设置在页面上显示
+    const dateText = document.getElementById("date-text");
+
+    const daysOfWeek = ["日", "月", "火", "水", "木", "金", "土"];
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const dayOfWeek = daysOfWeek[now.getDay()];
+    dateText.textContent = `${month}月${day}日（${dayOfWeek}）`;
+</script>
+<script>
+    const menuBtn = document.getElementById("menuBtn");
+  
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("open");
+    });
 </script>
 </body>
 </html>
