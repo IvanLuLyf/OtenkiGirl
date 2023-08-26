@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
     <link rel="icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -431,6 +433,35 @@
             }
         }
 
+        /* 日期选择框以及倒三角 */
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper .date-box {
+            padding-right: 30px; /* 给输入框留出位置放置图标 */
+        }
+        .input-wrapper .fas {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .date-box {
+            width: 100%;
+            line-height: 12px;
+            font-size: 12px;
+            padding: 6px;
+            border: chocolate 1px solid;
+            border-radius: 2px;
+            outline: none;
+            resize: vertical;
+        }
+
+        .date-box:focus, .date-box:active {
+            border: #ffa155 1px solid;
+        }
+        
     </style>
 </head>
 <body>
@@ -472,7 +503,10 @@
                 <div class="form-two-column">
                     <label class="form-item">
                         <span class="input-label" data-lang="time"></span>
-                        <input type="text" class="text-box" data-name="date">
+                        <div class="input-wrapper">
+                            <input type="text" class="date-box" data-name="date" id="date-picker" data-lang-attrs="placeholder" data-lang-placeholder="choose_date">
+                            <i class="fas fa-caret-down"></i> <!-- Font Awesome倒三角图标 -->
+                        </div>
                     </label>
                     <label class="form-item">
                         <span class="input-label" data-lang="place"></span>
@@ -522,6 +556,7 @@
             "ok": "确定",
             "cancel": "取消",
             "network_error": "网络错误,请检查网络连接",
+            "choose_date": "请选择",
         };
 
         let post_list = document.getElementById('post_list');
@@ -659,5 +694,17 @@
       menuBtn.classList.toggle("open");
     });
 </script>
+<script>
+    // 引入Flatpickr库后
+    const dateInput = document.getElementById('date-picker');
+
+    flatpickr(dateInput, {
+    // 在这里可以进行各种自定义设置
+    // 例如日期格式、语言、样式等
+    dateFormat: 'Y-m-d', // 日期格式
+    // 更多配置项可以在Flatpickr文档中找到：https://flatpickr.js.org/options/
+    });
+</script>
+
 </body>
 </html>

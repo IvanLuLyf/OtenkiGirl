@@ -15,5 +15,6 @@
   "confirm": "确认提交嘛?联系方式不用写真的哦~",
   "ok": "确定",
   "cancel": "取消",
-  "network_error": "网络错误,请检查网络连接"
+  "network_error": "网络错误,请检查网络连接",
+  "choose_date": "请选择"
 }

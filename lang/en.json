@@ -15,5 +15,6 @@
   "confirm": "Do you want to confirm the submission?",
   "ok": "OK",
   "cancel": "Cancel",
-  "network_error": "Network error, please check the network connection"
+  "network_error": "Network error, please check the network connection",
+  "choose_date": "Please select"
 }
